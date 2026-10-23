@@ -1,0 +1,45 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>社群地图 | Leappo澳洲</title>
+<link rel="stylesheet" href="assets/tokens.css"><link rel="stylesheet" href="assets/widget.css">
+<style>
+.hero{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.hero img{width:84px;flex:none}
+.first{padding:16px 18px;margin-bottom:16px;background:var(--grad-yellow);border:0}
+.first b{display:block;font-size:17px;margin-bottom:4px}
+.first .row{margin-top:10px}
+.list{display:grid;gap:10px}
+details{background:#fff;border:1px solid var(--border-faint);border-radius:16px;box-shadow:var(--shadow-card-alt)}
+summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px 16px;min-height:56px;cursor:pointer;font-weight:800}
+summary::-webkit-details-marker{display:none}
+summary .e{font-size:22px;width:30px;text-align:center}
+summary .s{font-weight:400;color:var(--muted);font-size:15px;margin-left:auto;text-align:right}
+summary::after{content:"＋";color:var(--orange);font-weight:800;margin-left:6px}
+details[open] summary::after{content:"－"}
+details>div{padding:0 16px 16px 58px;color:var(--text-body-strong)}
+details>div p{margin:0 0 10px}
+.go{font-weight:800;color:var(--lavender);text-decoration:none}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:420px){summary .s{display:none}}
+</style></head><body><main class="wrap">
+<div class="hero"><img src="assets/m-yellow-wink.png" alt="Leappo 的黄色小太阳在眨眼">
+<div><div class="eyebrow">LEAPPO 澳洲 · 第一次来</div><h1>这里每个地方放什么</h1></div></div>
+<div class="card first"><b>先做一件事就够了</b>去「👋新朋友报到」说一句话。不想打字，就报一场自习室，静音坐着也算来过。
+<div class="row"><a class="btn" target="_top" href="https://app.heartbeat.chat/leappo-au/t/%E6%96%B0%E6%9C%8B%E5%8F%8B%E6%8A%A5%E5%88%B0">去报到</a><a class="btn ghost" target="_top" href="https://app.heartbeat.chat/leappo-au/events">看自习室时间</a></div></div>
+<div class="list" id="list"></div>
+<p class="foot">Leappo澳洲 是同伴社群，不做诊断，也不做治疗。紧急情况拨 000。</p>
+</main>
+<script>
+const H='https://app.heartbeat.chat/leappo-au';
+const C=[
+ ['📌','公告与守则','一周最多两条','守则、活动时间和重要通知都在这里。只想开一个频道的通知，就开这个。',H+'/t/%E5%85%AC%E5%91%8A%E4%B8%8E%E5%AE%88%E5%88%99'],
+ ['👋','新朋友报到','说一句你是谁','怎么称呼、在哪个城市、这周想搞定的一件小事。化名也行。',H+'/t/%E6%96%B0%E6%9C%8B%E5%8F%8B%E6%8A%A5%E5%88%B0'],
+ ['🍅','一起专注','每周线上自习','周二晚 8 点晚自习，周六早 10 点番茄钟。点 RSVP，活动会进你的日历。摄像头可以不开。',H+'/events'],
+ ['🔊','随时自习室','想找人陪着做事','语音房一直开着。在左边频道列表里点它，进去静音坐着就行。',null],
+ ['🌱','今日一小步','一天写一件事','写今天想动的一小步，或者刚做完的一件。隔了多久回来都可以接着写。',H+'/t/%E4%BB%8A%E6%97%A5%E4%B8%80%E5%B0%8F%E6%AD%A5'],
+ ['🧭','经验互助','管用的土办法','学习、上班、过日子，你试过管用的办法都可以放这里。药物和诊断问你的 GP。',H+'/t/%E7%BB%8F%E9%AA%8C%E4%BA%92%E5%8A%A9'],
+ ['☕','茶水间','随便聊','想聊什么都行，像群聊一样。',H+'/c/120fb302-249e-4986-a8fe-fac13710a677'],
+ ['🧩','找搭子','两两配对','给你配一个「专注搭子」。人数够了会开。',H+'/matchmaking'],
+ ['🧡','安全与求助指引','紧急情况看这里','同伴社群不是危机服务。有即时危险拨 000；想找人聊聊，Lifeline 13 11 14；需要中文口译，TIS 131 450。',H+'/t/%E5%AE%89%E5%85%A8%E4%B8%8E%E6%B1%82%E5%8A%A9%E6%8C%87%E5%BC%95']
+];
+document.getElementById('list').innerHTML=C.map(([e,n,s,d,u])=>`<details><summary><span class="e" aria-hidden="true">${e}</span>${n}<span class="s">${s}</span></summary><div><p>${d}</p>${u?`<a class="go" target="_top" href="${u}">去「${n}」看看 →</a>`:''}</div></details>`).join('');
+</script></body></html>

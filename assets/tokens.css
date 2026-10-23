@@ -1,0 +1,176 @@
+/* Leappo design tokens
+   Extracted from https://leappo.life/leappoHome on 20 Oct 2026.
+   Section 1 = the site's own :root variables (verbatim).
+   Section 2+ = values observed in computed styles / source CSS, named by me. */
+
+:root {
+  /* 1. Brand palette (verbatim from site :root) */
+  --brown: #663625;          /* primary ink, headings, primary buttons */
+  --orange: #fa8a53;         /* eyebrows, stats, checkmarks, button "shadow" */
+  --yellow: #f1f77e;         /* secondary buttons, tags, CTA band */
+  --yellow-pale: #fbffaf;
+  --lavender: #8d8ff5;       /* accent text, accent borders */
+  --lavender-mid: #b5b6fb;
+  --lavender-soft: #e5e6ff;
+  --lavender-pale: #ecedff;  /* note boxes */
+  --cream: #fcf7f3;
+  --peach: #fbe9de;
+  --white: #ffffff;
+  --ink: #3b3431;
+  --muted: #746b67;          /* body/secondary copy */
+  --line: rgba(102, 54, 37, .2);
+  --container: 1180px;
+  --page-gutter: 25px;       /* desktop header/sections actually render 50px */
+
+  /* 2. Extra text colours seen in use */
+  --text-body-strong: #5a4d48;
+  --text-list: #5f544f;
+  --text-caption: #867d78;
+  --text-default-app: #2c3e50; /* inherited Vue default on #app, mostly overridden */
+
+  /* 3. Brown-alpha border scale (borders are always brown at some opacity) */
+  --border-faint: rgba(102, 54, 37, .12);
+  --border-soft: rgba(102, 54, 37, .2);
+  --border-card: rgba(102, 54, 37, .34);
+  --border-strong: rgba(102, 54, 37, .46);
+  --border-plan: rgba(102, 54, 37, .58);
+
+  /* 4. Section gradients */
+  --grad-hero: linear-gradient(145deg, #fcf7f3, #fbe9de 43%, #e5e6ff 75%, #fbffaf 118%);
+  --grad-yellow: linear-gradient(160deg, #fbffaf, #f1f77e 52%, #fbe9de);
+  --grad-lavender: linear-gradient(145deg, #ffffff, #ecedff 54%, #fcf7f3);
+  --grad-peach: linear-gradient(145deg, #fcf7f3, #fbe9de 52%, #fbffaf 125%);
+  --grad-plan-monthly: linear-gradient(150deg, #fff 0% 82%, #fffde7);
+  --grad-plan-quarterly: linear-gradient(150deg, #fff, #fffde7 78%, #fbffaf 130%);
+  --grad-card-stripe: linear-gradient(90deg, var(--orange) 0 72%, var(--lavender) 72%);
+
+  /* 5. Typography */
+  --font-sans: Avenir, Helvetica, Arial, sans-serif;
+  --font-serif: Georgia, "Songti SC", serif;  /* quotes, stat numbers, accent lines */
+  --fs-h1: 64px;   /* renders 50px at ~1200px viewport; 42px mobile */
+  --fs-h2: 44px;   /* 32px mobile */
+  --fs-h3-card: 20px;
+  --fs-h3-sm: 17px;
+  --fs-plan-title: 28px;
+  --fs-lead: 18px;
+  --fs-body: 16px;
+  --fs-small: 15px;
+  --fs-meta: 14px;
+  --fs-caption: 13px;
+  --fs-tag: 12px;
+  --fw-regular: 400;
+  --fw-semibold: 650;
+  --fw-bold: 700;
+  --fw-heavy: 800;
+  --fw-black: 850;  /* h1, h2, buttons, eyebrows */
+  --lh-h1: 1.14;
+  --lh-h2: 1.24;
+  --lh-body: 1.55;
+  --lh-quote: 1.7;
+
+  /* 6. Radius */
+  --radius-sm: 4px;
+  --radius-control: 6px;   /* language switcher */
+  --radius-card: 8px;      /* almost every card */
+  --radius-panel: 24px;    /* large feature panels */
+  --radius-panel-lg: 28px;
+  --radius-pill: 999px;    /* buttons, tags, chips */
+
+  /* 7. Shadows: soft brown blur OR hard orange offset (signature) */
+  --shadow-card: 0 10px 20px rgba(102, 54, 37, .07);
+  --shadow-card-alt: 0 9px 22px rgba(102, 54, 37, .06);
+  --shadow-float: 0 5px 16px rgba(102, 54, 37, .12);
+  --shadow-btn-primary: 0 7px 0 rgba(250, 138, 83, .7);
+  --shadow-plan: 0 9px 0 var(--orange);
+  --shadow-lavender-offset: 0 8px 0 rgba(141, 143, 245, .18);
+
+  /* 8. Spacing (observed) */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 10px; --space-4: 14px;
+  --space-5: 16px; --space-6: 20px; --space-7: 22px; --space-8: 32px;
+  --space-section-y: 72px;
+  --card-pad: 22px;
+  --plan-pad: 34px;
+
+  /* 9. Sizes */
+  --header-h: 72px;    /* 64px mobile */
+  --btn-h: 54px;
+  --btn-h-header: 44px;
+  --icon-btn: 44px;    /* round carousel arrows */
+  --accent-border: 5px; /* coloured top borders on cards */
+
+  /* 10. Motion */
+  --ease-lift: transform .16s ease, box-shadow .16s ease;
+  --lift: translateY(-2px);
+}
+
+/* Breakpoints used by the site:
+   1040px, 900px, 820px/821px, 640px, 560px, 360px; plus prefers-reduced-motion */
+
+/* ==========================================================
+   SEMANTIC LAYER (Impeccable extract, 20 Oct 2026)
+   Components only read these. Re-skin by remapping here.
+   ========================================================== */
+:root {
+  /* text */
+  --color-text-heading: var(--brown);
+  --color-text-body: var(--muted);
+  --color-text-strong: var(--text-body-strong);
+  --color-text-list: var(--text-list);
+  --color-text-caption: var(--text-caption);
+  --color-text-on-dark: var(--white);
+  --color-text-eyebrow: var(--orange);      /* decorative: 2.3:1 on cream, keep >=15px heavy */
+  --color-text-eyebrow-aa: #a94a1b;         /* accessible alternative: 5.4:1 cream, 5.0:1 yellow */
+  --color-text-accent: var(--lavender);
+
+  /* surfaces */
+  --color-surface-page: var(--cream);
+  --color-surface-card: var(--white);
+  --color-surface-card-translucent: rgba(255, 255, 255, .78);
+  --color-surface-note: var(--lavender-pale);
+  --color-surface-tag: var(--yellow);
+  --color-surface-tag-soft: #f7f7c8;
+  --color-surface-header: rgba(252, 252, 255, .94);
+  --color-surface-media: #e8e9ff;
+
+  /* actions */
+  --color-action-primary-bg: var(--brown);
+  --color-action-primary-fg: var(--white);
+  --color-action-primary-offset: rgba(250, 138, 83, .7);
+  --color-action-secondary-bg: var(--yellow);
+  --color-action-secondary-fg: var(--brown);
+  --color-focus-ring: var(--lavender);
+
+  /* accents (cycle in this order) */
+  --color-accent-1: var(--orange);
+  --color-accent-2: var(--lavender);
+  --color-accent-3: var(--yellow);
+  --color-icon-check: var(--orange);
+
+  /* borders */
+  --color-border-subtle: var(--border-faint);
+  --color-border-divider: var(--border-soft);
+  --color-border-card: var(--border-card);
+  --color-border-strong: var(--border-strong);
+  --color-border-emphasis: var(--border-plan);
+
+  /* elevation */
+  --elevation-card: var(--shadow-card);
+  --elevation-float: var(--shadow-float);
+  --elevation-offset-action: 0 7px 0 var(--color-action-primary-offset);
+  --elevation-offset-feature: var(--shadow-plan);
+
+  /* section backgrounds */
+  --section-bg-hero: var(--grad-hero);
+  --section-bg-warm: var(--grad-peach);
+  --section-bg-bright: var(--grad-yellow);
+  --section-bg-calm: var(--grad-lavender);
+  --section-bg-plain: var(--white);
+
+  /* motion */
+  --motion-fast: .16s;
+  --motion-ease: ease;
+}
+
+/* Chinese / cross-platform fallback (Avenir is Mac-only; Windows falls to Helvetica/Arial) */
+:root { --font-sans-cjk: Avenir, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", Helvetica, Arial, sans-serif; }
+:lang(zh) { --font-sans: var(--font-sans-cjk); --font-serif: Georgia, "Songti SC", "SimSun", serif; }

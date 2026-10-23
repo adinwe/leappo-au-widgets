@@ -1,0 +1,48 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>今天卡在哪？| Leappo澳洲</title>
+<link rel="stylesheet" href="assets/tokens.css"><link rel="stylesheet" href="assets/widget.css">
+<style>
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 10px 16px;background:#fff;border:1.5px solid var(--border-faint);border-radius:18px;box-shadow:var(--shadow-card);transition:transform .18s,border-color .18s}
+.opt:hover{transform:translateY(-2px);border-color:var(--lavender-mid)}
+.opt[aria-pressed="true"]{border-color:var(--orange);background:var(--yellow-pale)}
+.opt img{width:96px;height:96px;object-fit:contain}
+.opt b{font-size:17px}
+.opt small{color:var(--muted);font-size:14px;line-height:1.4;text-align:center}
+.ans{margin-top:16px;padding:20px;display:none}
+.ans.show{display:block;animation:in .25s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.ans h2{font-size:20px;margin:0 0 8px}
+.ans p{margin:0 0 14px}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+</style></head><body><main class="wrap">
+<div class="eyebrow">LEAPPO 澳洲 · 一小步</div>
+<h1>今天卡在哪？</h1>
+<p class="sub">点一张最像你现在的卡，只给你一件小事。</p>
+<div class="grid" role="group" aria-label="选一个最像你现在的状态">
+ <button class="opt" data-k="stuck" aria-pressed="false"><img src="assets/stuck.png" alt=""><b>开不了头</b><small>知道要做，就是动不了</small></button>
+ <button class="opt" data-k="full" aria-pressed="false"><img src="assets/brain-meeting.png" alt=""><b>脑子太满</b><small>事情太多，不知道先做哪个</small></button>
+ <button class="opt" data-k="low" aria-pressed="false"><img src="assets/low-battery.png" alt=""><b>电量很低</b><small>累，什么都不想做</small></button>
+ <button class="opt" data-k="back" aria-pressed="false"><img src="assets/welcome-back.png" alt=""><b>消失了一阵</b><small>有点不好意思回来</small></button>
+</div>
+<section class="card ans" id="ans" aria-live="polite"></section>
+<p class="foot">这是同伴社群的小工具，不是治疗。紧急情况请拨 000，或看「🧡安全与求助指引」。你点了什么不会被记录。</p>
+</main>
+<script>
+const H='https://app.heartbeat.chat/leappo-au';
+const L={step:H+'/t/%E4%BB%8A%E6%97%A5%E4%B8%80%E5%B0%8F%E6%AD%A5',ev:H+'/events',tips:H+'/t/%E7%BB%8F%E9%AA%8C%E4%BA%92%E5%8A%A9'};
+const A={
+ stuck:{t:'把这件事缩到两分钟',p:'只做最前面那一下：打开文件，或者只写第一句。做完这两分钟，想停就停。旁边有人一起做会容易一点，左边「🔊随时自习室」一直开着。',b:[['找个自习室',L.ev],['说一句我卡在哪','step']]},
+ full:{t:'先把脑子倒空',p:'拿张纸或者备忘录，把脑子里的事全写下来，不用排顺序。写完只圈一件最小的，今天就做它。',b:[['写下今天的一小步','step'],['看看别人的土办法',L.tips]]},
+ low:{t:'今天先照顾自己一下',p:'喝杯水，吃点东西，或者躺十分钟。这也算一小步。电量低的日子，什么都没做成也没关系。',b:[['回一句「我还在」','step']]},
+ back:{t:'回来就好，不用解释',p:'去「🌱今日一小步」回一句「今天的一小步：____」，就算回来了。小到「把衣服挂起来」都行。',b:[['去回一句','step']]}
+};
+const ans=document.getElementById('ans');
+document.querySelectorAll('.opt').forEach(o=>o.addEventListener('click',()=>{
+ document.querySelectorAll('.opt').forEach(x=>x.setAttribute('aria-pressed','false'));o.setAttribute('aria-pressed','true');
+ const a=A[o.dataset.k];
+ ans.innerHTML=`<h2>${a.t}</h2><p>${a.p}</p><div class="row">`+a.b.map(([n,u],i)=>`<a class="btn ${i?'ghost':''}" target="_top" href="${u==='step'?L.step:u}">${n}</a>`).join('')+'</div>';
+ ans.classList.remove('show');void ans.offsetWidth;ans.classList.add('show');
+ ans.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+}));
+</script></body></html>
